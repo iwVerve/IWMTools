@@ -1,0 +1,115 @@
+@font-face {
+    font-family: FutureKid;
+    src: url(FutureKid.ttf);
+}
+
+:root {
+    --background-color: hsla(0, 0%, 90%, 1);
+    --app-color: hsla(0, 0%, 100%, 1);
+    --shadow-color: hsla(0, 0%, 0%, 0.25);
+
+    --button-color: hsla(0, 0%, 80%, 1);
+    --button-hover-color: hsla(0, 0%, 70%, 1);
+    --button-highlight-color: hsla(0, 0%, 55%, 1);
+
+    --tabs-color: hsla(0, 0%, 90%, 1);
+    --tab-highlight-color: hsla(0, 0%, 70%, 1);
+    --tab-highlight-hover-color: hsla(0, 0%, 65%, 1);
+    --tab-active-color: hsla(0, 0%, 80%, 1);
+    --tab-hover-color: hsla(0, 0%, 75%, 1);
+
+    --border-radius: 8px;
+}
+
+body {
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: FutureKid;
+    background-color: var(--background-color);
+}
+
+.app {
+    width: 960px;
+    height: 540px;
+
+    background-color: var(--app-color);
+    box-shadow: var(--shadow-color) 8px 8px 16px;
+    border-radius: var(--border-radius);
+}
+
+.app-content {
+    padding: 8px;
+}
+
+.header {
+    padding: 4px;
+    display: flex;
+}
+
+.tab-buttons {
+    padding: 4px;
+    display: flex;
+
+    background-color: var(--tabs-color);
+    border-radius: var(--border-radius);
+}
+
+.left-flow {
+    display: flex;
+    align-items: center;
+}
+
+.square-button {
+    margin: 4px;
+
+    width: 48px;
+    height: 48px;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    border: none;
+    border-radius: var(--border-radius);
+
+    transition: 0.1s;
+    background-color: var(--button-color);
+}
+
+.square-button:hover {
+    background-color: var(--button-hover-color);
+    box-shadow: var(--button-highlight-color) 0 3px inset;
+}
+
+.tab-button {
+    margin: 4px;
+    box-shadow: var(--tab-highlight-color) 0 0 inset;
+    background-color: var(--tabs-color);
+}
+
+.tab-button.active {
+    box-shadow: var(--tab-highlight-color) 0 2px inset;
+    background-color: var(--tab-active-color);
+}
+
+.tab-button:hover {
+    box-shadow: var(--tab-highlight-hover-color) 0 2px inset;
+    background-color: var(--tab-hover-color);
+}
+
+.label {
+    margin: 8px;
+}
+
+.tab {
+    display: none;
+    padding: 8px;
+}
