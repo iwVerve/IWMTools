@@ -48,6 +48,18 @@ body {
     padding: 8px;
 }
 
+.absolute-container {
+    position: absolute;
+}
+
+.tooltip {
+    position: absolute;
+    top: 490px;
+    margin: 8px;
+    white-space: nowrap;
+    opacity: 0.5;
+}
+
 .header {
     padding: 4px;
     display: flex;
@@ -106,7 +118,7 @@ body {
 }
 
 .label {
-    margin: 8px;
+    margin: 4px;
 }
 
 .tab {

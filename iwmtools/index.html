@@ -8,36 +8,52 @@
     <body>
         <div class="app">
             <div class="app-content">
+
+                <div class="absolute-container">
+                    <div class="tooltip"></div>      
+                </div>
+
                 <div class="header">
                     <div class="left-flow">
                         <input type="file" id="upload-primary-map" hidden>
-                        <label for="upload-primary-map" class="square-button"><img src="img/upload.png"></label>
+                        <label for="upload-primary-map" class="square-button" id="upload-primary-map-label"><img src="img/upload.png"></label>
                         <span id="primary-file" class="label">No map chosen</span>
                     </div>
                 </div>
 
                 <div class="tab-buttons">
                     <div class="square-button tab-button active" id="info"><img src="img/info.png"></div>
-                    <div class="square-button tab-button" id="other"><img src="img/info.png"></div>
+                    <div class="square-button tab-button" id="merge"><img src="img/merge.png"></div>
                 </div>
 
                 <div class="tabs">
 
                     <div class="tab" id="tab-info">
-                        asdf
+                        <div class="label" id="label-name">Name: </div>
+                        <div class="label" id="label-objects">Objects: </div>
+                        <div class="label" id="label-version">Version: </div>
+                        <div class="label" id="label-tilesets">Tilesets: </div>
+                        <div class="label" id="label-spikes">Spikes: </div>
+                        <div class="label" id="label-background">Background: </div>
+                        <div class="label" id="label-size">Size: </div>
+                        <div class="label" id="label-colors">Colors: </div>
+                        <div class="label" id="label-scroll-mode">Scroll Mode: </div>
+                        <div class="label" id="label-music">Music: </div>
                     </div>
 
-                    <div class="tab" id="tab-other">
+                    <div class="tab" id="tab-merge">
                         1234
                     </div>
 
                 </div>
+
             </div>
         </div>
     </body>
     
     <script src="lib/jquery-3.6.0.js"></script>
     <script src="lib/lodash.js"></script>
-    <script src="back-end.js"></script>
+    <script src="iwm-core.js"></script>
+    <script src="iwm-functions.js"></script>
     <script src="front-end.js"></script>
 </html>

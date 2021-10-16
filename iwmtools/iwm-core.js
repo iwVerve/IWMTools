@@ -22,9 +22,9 @@ function getElementsByTagNameShallow(node, name) {
 class IWMMap {
     constructor(mapString) {
         var parser = new DOMParser();
-        this.mapXml = parser.parseFromString(mapString, "text/xml");
-        var head = this.mapXml.getElementsByTagName("sfm_map")[0].getElementsByTagName("head")[0];
-        var objects = this.mapXml.getElementsByTagName("sfm_map")[0].getElementsByTagName("objects")[0];
+        var mapXml = parser.parseFromString(mapString, "text/xml");
+        var head = mapXml.getElementsByTagName("sfm_map")[0].getElementsByTagName("head")[0];
+        var objects = mapXml.getElementsByTagName("sfm_map")[0].getElementsByTagName("objects")[0];
         this.properties = new IWMProperties(head);
         this.getObjects(objects);
     }
@@ -38,6 +38,7 @@ class IWMMap {
     }
 
     serialize() {
+        this.properties.objects = this.objects.length;
         var str = this.properties.serialize();
 
         var objectsString = "";

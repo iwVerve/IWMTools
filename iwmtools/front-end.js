@@ -1,3 +1,10 @@
+function tooltip(el, text) {
+    var tooltip = $ (".tooltip")[0];
+    el.addEventListener('mouseenter', function() {
+        tooltip.innerHTML = "asdf";
+    });
+}
+
 $ (document).ready(function() {
     currentTab = $ ("#tab-info");
     switching = false;
@@ -10,7 +17,8 @@ $ (document).ready(function() {
     {
         var fr = new FileReader();
         fr.onload = function() {
-            map = new IWMMap(fr.result);
+            primaryMap = new IWMMap(fr.result);
+            summarize(primaryMap);
         };
         fr.readAsText(t.files[0]);
         $ ("#primary-file")[0].textContent = t.files[0].name;
@@ -35,5 +43,18 @@ $ (document).ready(function() {
     });
 
     $ (currentTab).fadeIn(150);
+
+    function addTooltip(el, text) {
+        el.addEventListener('mouseenter', function() {
+            $ (".tooltip")[0].innerHTML = text;
+        });
+        el.addEventListener('mouseleave', function() {
+            $ (".tooltip")[0].innerHTML = "";
+        })
+    }
+
+    addTooltip($("#upload-primary-map-label")[0], "Upload primary map");
+    addTooltip($("#info")[0], "Map information");
+    addTooltip($("#merge")[0], "Merge two maps");
 });
 
