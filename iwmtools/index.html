@@ -14,8 +14,8 @@
                 </div>
 
                 <div class="header">
-                    <div class="left-flow">
-                        <input type="file" id="upload-primary-map" hidden>
+                    <div class="upload-area">
+                        <input type="file" id="upload-primary-map" onchange="processMap(this.files[0], primaryMap, $ ('#primary-file')[0]);" hidden>
                         <label for="upload-primary-map" class="square-button" id="upload-primary-map-label"><img src="img/upload.png"></label>
                         <span id="primary-file" class="label">No map chosen</span>
                     </div>
@@ -42,7 +42,11 @@
                     </div>
 
                     <div class="tab" id="tab-merge">
-                        1234
+                        <div class="upload-area">
+                            <input type="file" id="upload-merge-map" onchange="processMap(this.files[0], mergeMap, $ ('#merge-file')[0])" hidden>
+                            <label for="upload-merge-map" class="square-button" id="upload-merge-map-label"><img src="img/upload.png"></label>
+                            <span id="merge-file" class="label">No map chosen</span>
+                        </div>
                     </div>
 
                 </div>

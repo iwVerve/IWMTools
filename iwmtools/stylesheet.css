@@ -75,7 +75,7 @@ body {
     border-radius: var(--border-radius);
 }
 
-.left-flow {
+.upload-area {
     display: flex;
     align-items: center;
 }
@@ -125,5 +125,5 @@ body {
 
 .tab {
     display: none;
-    padding: 8px;
+    padding: 4px;
 }

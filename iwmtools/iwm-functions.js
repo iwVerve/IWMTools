@@ -1,5 +1,3 @@
-let primaryMap;
-
 function summarize(map)
 {
     $ ("#label-name")[0].innerHTML = `Name: ${map.properties.mapName}`;
