@@ -74,17 +74,17 @@ class IWMProperties {
     constructor(nodeHead) {
         if (arguments.length == 1) {
             this.mapName = nodeHead.getElementsByTagName("name")[0].innerHTML;
-            this.version = nodeHead.getElementsByTagName("version")[0].innerHTML;
-            this.tileset = nodeHead.getElementsByTagName("tileset")[0].innerHTML;
-            this.tileset2 = nodeHead.getElementsByTagName("tileset2")[0].innerHTML;
-            this.bg = nodeHead.getElementsByTagName("bg")[0].innerHTML;
-            this.spikes = nodeHead.getElementsByTagName("spikes")[0].innerHTML;
-            this.spikes2 = nodeHead.getElementsByTagName("spikes2")[0].innerHTML;
-            this.width = nodeHead.getElementsByTagName("width")[0].innerHTML;
-            this.height = nodeHead.getElementsByTagName("height")[0].innerHTML;
+            this.version = Number(nodeHead.getElementsByTagName("version")[0].innerHTML);
+            this.tileset = Number(nodeHead.getElementsByTagName("tileset")[0].innerHTML);
+            this.tileset2 = Number(nodeHead.getElementsByTagName("tileset2")[0].innerHTML);
+            this.bg = Number(nodeHead.getElementsByTagName("bg")[0].innerHTML);
+            this.spikes = Number(nodeHead.getElementsByTagName("spikes")[0].innerHTML);
+            this.spikes2 = Number(nodeHead.getElementsByTagName("spikes2")[0].innerHTML);
+            this.width = Number(nodeHead.getElementsByTagName("width")[0].innerHTML);
+            this.height = Number(nodeHead.getElementsByTagName("height")[0].innerHTML);
             this.colors = nodeHead.getElementsByTagName("colors")[0].innerHTML;
-            this.scroll_mode = nodeHead.getElementsByTagName("scroll_mode")[0].innerHTML;
-            this.music = nodeHead.getElementsByTagName("music")[0].innerHTML;
+            this.scroll_mode = Number(nodeHead.getElementsByTagName("scroll_mode")[0].innerHTML);
+            this.music = Number(nodeHead.getElementsByTagName("music")[0].innerHTML);
         }
         else {
             this.mapName = "";
@@ -217,7 +217,6 @@ class IWMObject {
         }
         if (this.sprite_angle != null) {
             str += ` sprite_angle="${this.sprite_angle}"`;
-            console.log("a");
         }
         str += ">";
         

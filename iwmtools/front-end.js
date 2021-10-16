@@ -13,7 +13,6 @@ function processMap(file, map, label, fn) {
     };
     fr.readAsText(file);
     label.textContent = file.name;
-
 }
 
 function updateUI() {
@@ -24,7 +23,12 @@ function updateUI() {
 
 function mergeMaps() {
     if (!$ ("#merge-button")[0].classList.contains("disabled")) {
-        download("merge.map", merge(primaryMap, mergeMap).serialize())
+        if (primaryMap.properties.width >= mergeMap.properties.width && primaryMap.properties.height >= mergeMap.properties.height) {
+            download("merge.map", merge(primaryMap, mergeMap).serialize());
+        }
+        else {
+            alert("Merged map does not fit inside the primary map.");
+        }
     }
 }
 
