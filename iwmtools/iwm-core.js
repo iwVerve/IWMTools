@@ -21,12 +21,18 @@ function getElementsByTagNameShallow(node, name) {
 
 class IWMMap {
     constructor(mapString) {
-        var parser = new DOMParser();
-        var mapXml = parser.parseFromString(mapString, "text/xml");
-        var head = mapXml.getElementsByTagName("sfm_map")[0].getElementsByTagName("head")[0];
-        var objects = mapXml.getElementsByTagName("sfm_map")[0].getElementsByTagName("objects")[0];
-        this.properties = new IWMProperties(head);
-        this.getObjects(objects);
+        if (arguments.length == 1) {
+            var parser = new DOMParser();
+            var mapXml = parser.parseFromString(mapString, "text/xml");
+            var head = mapXml.getElementsByTagName("sfm_map")[0].getElementsByTagName("head")[0];
+            var objects = mapXml.getElementsByTagName("sfm_map")[0].getElementsByTagName("objects")[0];
+            this.properties = new IWMProperties(head);
+            this.getObjects(objects);
+        }
+        else {
+            this.properties = new IWMProperties();
+            this.objects = [];
+        }
     }
 
     getObjects(nodeObjects) {
@@ -37,9 +43,18 @@ class IWMMap {
         }
     }
 
+    clone() {
+        var clonedMap = new IWMMap()
+        clonedMap.properties = this.properties.clone();
+        for (const object of this.objects) {
+            clonedMap.objects.push(object.clone())
+        }
+        return clonedMap;
+    }
+
     serialize() {
         this.properties.objects = this.objects.length;
-        var str = this.properties.serialize();
+        var str = this.properties.serialize(this);
 
         var objectsString = "";
         this.objects.forEach(function(object) {
@@ -57,22 +72,48 @@ class IWMMap {
 
 class IWMProperties {
     constructor(nodeHead) {
-        this.mapName = nodeHead.getElementsByTagName("name")[0].innerHTML;
-        this.version = nodeHead.getElementsByTagName("version")[0].innerHTML;
-        this.tileset = nodeHead.getElementsByTagName("tileset")[0].innerHTML;
-        this.tileset2 = nodeHead.getElementsByTagName("tileset2")[0].innerHTML;
-        this.bg = nodeHead.getElementsByTagName("bg")[0].innerHTML;
-        this.spikes = nodeHead.getElementsByTagName("spikes")[0].innerHTML;
-        this.spikes2 = nodeHead.getElementsByTagName("spikes2")[0].innerHTML;
-        this.width = nodeHead.getElementsByTagName("width")[0].innerHTML;
-        this.height = nodeHead.getElementsByTagName("height")[0].innerHTML;
-        this.colors = nodeHead.getElementsByTagName("colors")[0].innerHTML;
-        this.scroll_mode = nodeHead.getElementsByTagName("scroll_mode")[0].innerHTML;
-        this.music = nodeHead.getElementsByTagName("music")[0].innerHTML;
-        this.objects = nodeHead.getElementsByTagName("num_objects")[0].innerHTML;
+        if (arguments.length == 1) {
+            this.mapName = nodeHead.getElementsByTagName("name")[0].innerHTML;
+            this.version = nodeHead.getElementsByTagName("version")[0].innerHTML;
+            this.tileset = nodeHead.getElementsByTagName("tileset")[0].innerHTML;
+            this.tileset2 = nodeHead.getElementsByTagName("tileset2")[0].innerHTML;
+            this.bg = nodeHead.getElementsByTagName("bg")[0].innerHTML;
+            this.spikes = nodeHead.getElementsByTagName("spikes")[0].innerHTML;
+            this.spikes2 = nodeHead.getElementsByTagName("spikes2")[0].innerHTML;
+            this.width = nodeHead.getElementsByTagName("width")[0].innerHTML;
+            this.height = nodeHead.getElementsByTagName("height")[0].innerHTML;
+            this.colors = nodeHead.getElementsByTagName("colors")[0].innerHTML;
+            this.scroll_mode = nodeHead.getElementsByTagName("scroll_mode")[0].innerHTML;
+            this.music = nodeHead.getElementsByTagName("music")[0].innerHTML;
+        }
+        else {
+            this.mapName = "";
+            this.version = 0;
+            this.tileset = 0;
+            this.tileset2 = 0;
+            this.bg = 0;
+            this.spikes = 0;
+            this.spikes2 = 0;
+            this.width = 0;
+            this.height = 0;
+            this.colors = "";
+            this.scroll_mode = 0;
+            this.music = 0;
+        }
     }
 
-    serialize() {
+    clone() {
+        var clonedProperties = new IWMProperties();
+        clonedProperties.mapName = this.mapName; clonedProperties.version = this.version;
+        clonedProperties.tileset = this.tileset; clonedProperties.tileset2 = this.tileset2;
+        clonedProperties.bg = this.bg; clonedProperties.spikes = this.spikes;
+        clonedProperties.spikes2 = this.spikes2; clonedProperties.width = this.width;
+        clonedProperties.height = this.height; clonedProperties.colors = this.colors;
+        clonedProperties.scroll_mode = this.scroll_mode; clonedProperties.music = this.music;
+        return clonedProperties;
+    }
+
+    serialize(map) {
         var str =
         `<name>${this.mapName}</name>` +
         `<version>${this.version}</version>` +
@@ -86,7 +127,7 @@ class IWMProperties {
         `<colors>${this.colors}</colors>` +
         `<scroll_mode>${this.scroll_mode}</scroll_mode>`+
         `<music>${this.music}</music>`+
-        `<num_objects>${this.objects}</num_objects>`;
+        `<num_objects>${map.objects.length}</num_objects>`;
         return `<head>${str}</head>`;
     }
 }
@@ -109,7 +150,7 @@ class IWMObject {
         {
             this.type = arguments[0];
             this.x = arguments[1];
-            thix.y = arguments[2];
+            this.y = arguments[2];
             this.params = [];
             this.events = [];
             this.children = [];
@@ -139,6 +180,21 @@ class IWMObject {
         for (const nodeChild of childrenList) {
             this.children.push(new IWMObject(nodeChild));
         }
+    }
+
+    clone() {
+        var clonedObject = new IWMObject(this.type, this.x, this.y)
+        clonedObject.objName = this.objName;
+        for (const param of this.params) {
+            clonedObject.params.push(param.clone());
+        }
+        for (const evnt of this.events) {
+            clonedObject.events.push(evnt.clone());
+        }
+        for (const child of this.children) {
+            clonedObject.children.push(child.clone());
+        }
+        return clonedObject;
     }
 
     serialize(isChild) {
@@ -205,6 +261,17 @@ class IWMEvent {
         }
     }
 
+    clone() {
+        var clonedEvent = new IWMEvent(this.eventIndex);
+        for (const evnt of this.events) {
+            clonedEvent.events.push(evnt.clone());
+        }
+        for (const param of this.params) {
+            clonedEvent.params.push(param.clone());
+        }
+        return clonedEvent;
+    }
+
     serialize() {
         var str = `<event eventIndex="${this.eventIndex}">`;
         for (const param of this.params) {
@@ -232,6 +299,10 @@ class IWMParam {
             this.key = arguments[0];
             this.val = arguments[1];
         }
+    }
+
+    clone() {
+        return new IWMParam(this.key, this.val);
     }
 
     serialize() {

@@ -33,6 +33,8 @@ body {
 
     font-family: FutureKid;
     background-color: var(--background-color);
+
+    user-select: none;
 }
 
 .app {
