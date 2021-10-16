@@ -4,13 +4,22 @@ switching = false;
 primaryMap = {};
 mergeMap = {};
 
-function processMap(file, map, label) {
+function processMap(file, map, label, fn) {
     var fr = new FileReader();
     fr.onload = function() {
         Object.assign(map, new IWMMap(fr.result));
+        fn();
+        updateUI();
     };
     fr.readAsText(file);
     label.textContent = file.name;
+
+}
+
+function updateUI() {
+    if (!($.isEmptyObject(primaryMap)) && !($.isEmptyObject(mergeMap))){
+        $ ("#merge-button")[0].classList.remove("disabled");
+    }
 }
 
 var tabButtons = $ (".tab-button");

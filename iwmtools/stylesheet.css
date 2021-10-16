@@ -98,7 +98,12 @@ body {
     background-color: var(--button-color);
 }
 
-.square-button:hover {
+.square-button.disabled {
+    opacity: 0.75;
+    cursor: default;
+}
+
+.square-button:hover:not(.disabled) {
     background-color: var(--button-hover-color);
     box-shadow: var(--button-highlight-color) 0 3px inset;
 }

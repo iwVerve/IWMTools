@@ -15,7 +15,7 @@
 
                 <div class="header">
                     <div class="upload-area">
-                        <input type="file" id="upload-primary-map" onchange="processMap(this.files[0], primaryMap, $ ('#primary-file')[0]);" hidden>
+                        <input type="file" id="upload-primary-map" onchange="processMap(this.files[0], primaryMap, $ ('#primary-file')[0], function() {summarize(primaryMap)});" hidden>
                         <label for="upload-primary-map" class="square-button" id="upload-primary-map-label"><img src="img/upload.png"></label>
                         <span id="primary-file" class="label">No map chosen</span>
                     </div>
@@ -43,10 +43,11 @@
 
                     <div class="tab" id="tab-merge">
                         <div class="upload-area">
-                            <input type="file" id="upload-merge-map" onchange="processMap(this.files[0], mergeMap, $ ('#merge-file')[0])" hidden>
+                            <input type="file" id="upload-merge-map" onchange="processMap(this.files[0], mergeMap, $ ('#merge-file')[0], function() {})" hidden>
                             <label for="upload-merge-map" class="square-button" id="upload-merge-map-label"><img src="img/upload.png"></label>
                             <span id="merge-file" class="label">No map chosen</span>
                         </div>
+                        <div class="square-button disabled" id="merge-button"><img src="img/finish.png"></div>
                     </div>
 
                 </div>
