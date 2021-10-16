@@ -136,11 +136,11 @@ class IWMObject {
     constructor() {
         if (arguments.length == 1) {
             var nodeObject = arguments[0];
-            this.type = nodeObject.getAttribute("type");
-            this.x = nodeObject.getAttribute("x");
-            this.y = nodeObject.getAttribute("y");
-            this.slot = nodeObject.getAttribute("slot");
-            this.sprite_angle = nodeObject.getAttribute("sprite_angle");
+            this.type = Number(nodeObject.getAttribute("type"));
+            this.x = Number(nodeObject.getAttribute("x"));
+            this.y = Number(nodeObject.getAttribute("y"));
+            this.slot = Number(nodeObject.getAttribute("slot"));
+            this.sprite_angle = Number(nodeObject.getAttribute("sprite_angle"));
             this.getParams(nodeObject);
             this.getEvents(nodeObject);
             this.getChildren(nodeObject);
