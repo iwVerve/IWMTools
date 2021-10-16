@@ -43,7 +43,7 @@ class IWMMap {
         }
     }
 
-    clone() {
+    clone = function() {
         var clonedMap = new IWMMap()
         clonedMap.properties = this.properties.clone();
         for (const object of this.objects) {

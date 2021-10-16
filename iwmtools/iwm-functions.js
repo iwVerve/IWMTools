@@ -1,5 +1,4 @@
-function summarize(map)
-{
+function summarize(map) {
     $ ("#label-name")[0].innerHTML = `Name: ${map.properties.mapName}`;
     $ ("#label-objects")[0].innerHTML = `Objects: ${map.objects.length}`;
     $ ("#label-version")[0].innerHTML = `Version: ${map.properties.version}`;
@@ -10,4 +9,12 @@ function summarize(map)
     $ ("#label-colors")[0].innerHTML = `Colors: todo`;
     $ ("#label-scroll-mode")[0].innerHTML = `Scroll Mode: ${map.properties.scroll_mode}`;
     $ ("#label-music")[0].innerHTML = `Music: ${map.properties.music}`;
+}
+
+function merge(primary, secondary) {
+    var mergedMap = primary.clone();
+    for (const object of secondary.objects) {
+        mergedMap.objects.push(object);
+    }
+    return mergedMap;
 }

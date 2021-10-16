@@ -22,6 +22,12 @@ function updateUI() {
     }
 }
 
+function mergeMaps() {
+    if (!$ ("#merge-button")[0].classList.contains("disabled")) {
+        download("merge.map", merge(primaryMap, mergeMap).serialize())
+    }
+}
+
 var tabButtons = $ (".tab-button");
 Array.from(tabButtons).forEach(function(tabButton) {
     tabButton.addEventListener('click', function() {
@@ -55,3 +61,4 @@ addTooltip($("#upload-primary-map-label")[0], "Upload primary map");
 addTooltip($("#info")[0], "Map information");
 addTooltip($("#merge")[0], "Merge two maps");
 addTooltip($("#upload-merge-map-label")[0], "Upload merged map");
+addTooltip($("#merge-button")[0], "Merge and download");
