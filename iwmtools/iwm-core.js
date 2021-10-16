@@ -52,7 +52,7 @@ class IWMMap {
         return clonedMap;
     }
 
-    serialize() {
+    serialize = function() {
         this.properties.objects = this.objects.length;
         var str = this.properties.serialize(this);
 
@@ -144,13 +144,21 @@ class IWMObject {
             this.getParams(nodeObject);
             this.getEvents(nodeObject);
             this.getChildren(nodeObject);
-            this.objName = nodeObject.getAttribute("name");
+            var nameElements = nodeObject.getElementsByTagName("name");
+            if (nameElements.length > 0) {
+                this.objName = nodeObject.getElementsByTagName("name")[0].innerHTML;
+            }
+            else {
+                this.objName = null;
+            }
         }
         else
         {
             this.type = arguments[0];
             this.x = arguments[1];
             this.y = arguments[2];
+            this.slot = 0;
+            this.sprite_angle = null;
             this.params = [];
             this.events = [];
             this.children = [];
@@ -184,6 +192,8 @@ class IWMObject {
 
     clone() {
         var clonedObject = new IWMObject(this.type, this.x, this.y)
+        clonedObject.slot = this.slot;
+        clonedObject.sprite_angle = this.sprite_angle;
         clonedObject.objName = this.objName;
         for (const param of this.params) {
             clonedObject.params.push(param.clone());
@@ -207,6 +217,7 @@ class IWMObject {
         }
         if (this.sprite_angle != null) {
             str += ` sprite_angle="${this.sprite_angle}"`;
+            console.log("a");
         }
         str += ">";
         
